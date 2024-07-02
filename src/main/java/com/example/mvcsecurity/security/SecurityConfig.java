@@ -3,6 +3,7 @@ package com.example.mvcsecurity.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -14,17 +15,17 @@ public class SecurityConfig {
     @Bean
     public UserDetailsManager userDetailsManager(DataSource dataSource) {
         JdbcUserDetailsManager theUserDetailsManager = new JdbcUserDetailsManager(dataSource);
-        theUserDetailsManager.setUsersByUsernameQuery("select user_id, pw, active from members where user_id=?");
-        theUserDetailsManager.setAuthoritiesByUsernameQuery("select user_id, role from roles where user_id=?");
+        theUserDetailsManager.setUsersByUsernameQuery("select username, password, active from employees where " +
+                "username=?");
+        theUserDetailsManager.setAuthoritiesByUsernameQuery("select username, role from employees where username=?");
         return theUserDetailsManager;
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer -> configurer
-                        .requestMatchers("/").hasRole("EMPLOYEE")
-                        .requestMatchers("/leaders").hasRole("MANAGER")
-                        .requestMatchers("/admins").hasRole("ADMIN")
+                        .requestMatchers("/").hasAnyRole("EMPLOYEE", "MANAGER")
+                        .requestMatchers("/listEmployees").hasRole("MANAGER")
                         .anyRequest().authenticated())
                 .exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
                         httpSecurityExceptionHandlingConfigurer.accessDeniedPage("/access-denied"))
@@ -32,7 +33,7 @@ public class SecurityConfig {
                             .loginPage("/LoginPage")
                             .loginProcessingUrl("/authenticateTheUser")
                             .permitAll())
-                .logout(logout -> logout.permitAll());
+                .logout(LogoutConfigurer::permitAll);
         return http.build();
     }
 }

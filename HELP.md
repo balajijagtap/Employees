@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'com.example.mvc-security' is invalid and this project uses 'com.example.mvcsecurity' instead.
+* The original package username 'com.example.mvc-security' is invalid and this project uses 'com.example.mvcsecurity' instead.
 
 # Getting Started
 

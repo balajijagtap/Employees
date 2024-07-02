@@ -1,35 +1,24 @@
-CREATE DATABASE  IF NOT EXISTS `employee_directory`;
-USE `employee_directory`;
+CREATE DATABASE  IF NOT EXISTS `employeeDB`;
+USE `employeeDB`;
 
-DROP TABLE IF EXISTS `authorities`;
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `employees`;
 
-CREATE TABLE `users` (
-    `username` varchar(50) NOT NULL,
+CREATE TABLE `employees` (
+    `username` varchar(68) NOT NULL,
     `password` varchar(68) NOT NULL,
-    `enabled` tinyint NOT NULL,
+    `role` varchar(50) NOT NULL,
+    `manager` varchar(68),
+    `active` tinyint NOT NULL,
     PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `users`
+INSERT INTO `employees`
 VALUES
-('john','{bcrypt}$2a$10$nnc5PmTjv8ffuRfQINv6VOA3PKST9xFCy09Hlxz0wcBcZB6UURQze',1),
-('mary','{bcrypt}$2a$10$nnc5PmTjv8ffuRfQINv6VOA3PKST9xFCy09Hlxz0wcBcZB6UURQze',1),
-('susan','{bcrypt}$2a$10$nnc5PmTjv8ffuRfQINv6VOA3PKST9xFCy09Hlxz0wcBcZB6UURQze',1);
-
-CREATE TABLE `authorities` (
-    `username` varchar(50) NOT NULL,
-    `authority` varchar(50) NOT NULL,
-    UNIQUE KEY `authorities_idx_1` (`username`,`authority`),
-    CONSTRAINT `authorities_ibfk_1`
-    FOREIGN KEY (`username`) REFERENCES `users` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-INSERT INTO `authorities`
-VALUES
-('john','ROLE_EMPLOYEE'),
-('mary','ROLE_EMPLOYEE'),
-('mary','ROLE_MANAGER'),
-('susan','ROLE_EMPLOYEE'),
-('susan','ROLE_MANAGER'),
-('susan','ROLE_ADMIN');
+('Imandi','{noop}fun123','ROLE_MANAGER', NULL, 1),
+('Ajit','{noop}fun123','ROLE_MANAGER', NULL, 1),
+('Balaji','{noop}123','ROLE_EMPLOYEE', 'Imandi', 1),
+('Pranay','{noop}fun123','ROLE_EMPLOYEE', 'Imandi', 1),
+('Vishnu','{noop}fun123','ROLE_EMPLOYEE', 'Imandi', 1),
+('Utkarsh','{noop}fun123','ROLE_EMPLOYEE', 'Ajit', 1),
+('Avesh','{noop}fun123','ROLE_EMPLOYEE', 'Ajit', 1),
+('Sanjay','{noop}fun123','ROLE_EMPLOYEE', 'Ajit', 1);
