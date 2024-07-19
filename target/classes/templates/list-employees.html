@@ -8,18 +8,35 @@
     <h2>My Employees</h2>
     <hr>
 
+    <div th:if="${successMessage}">
+        Employee deleted successfully.
+        <br><br>
+    </div>
+
+    <div th:if="${errorMessage}">
+        Failed to delete Employee.
+        <br><br>
+    </div>
+
     <table>
         <thead>
         <tr>
             <th>Username</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="employee : ${employees}">
             <td th:text="${employee.username}"></td>
+            <td>
+                <form th:action="@{/deleteEmployee(username=${employee.username})}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
+
 
     <br>
     <a th:href="@{/}">

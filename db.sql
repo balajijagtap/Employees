@@ -16,7 +16,7 @@ INSERT INTO `employees`
 VALUES
 ('Imandi','{noop}fun123','ROLE_MANAGER', NULL, 1),
 ('Ajit','{noop}fun123','ROLE_MANAGER', NULL, 1),
-('Balaji','{noop}123','ROLE_EMPLOYEE', 'Imandi', 1),
+('Balaji','{noop}fun123','ROLE_EMPLOYEE', 'Imandi', 1),
 ('Pranay','{noop}fun123','ROLE_EMPLOYEE', 'Imandi', 1),
 ('Vishnu','{noop}fun123','ROLE_EMPLOYEE', 'Imandi', 1),
 ('Utkarsh','{noop}fun123','ROLE_EMPLOYEE', 'Ajit', 1),

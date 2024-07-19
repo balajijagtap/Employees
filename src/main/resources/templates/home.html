@@ -12,14 +12,46 @@ Role: <span sec:authentication="principal.authorities" th:text="${#authenticatio
 <br><br>
 
 <div sec:authorize="hasRole('MANAGER')">
+
     <a th:href="@{/listEmployees(username=${#authentication.name})}">
         List My Employees
         <br><br>
     </a>
+
+    <h3>Add Employee</h3>
+    <form th:action="@{/addEmployee}" method="post">
+        <div th:if="${successMessage}">
+            Employee Added successfully.
+            <br><br>
+        </div>
+
+        <div th:if="${errorMessage}">
+            Failed to add Employee.
+            <br><br>
+        </div>
+
+        <label for="Username">Username:</label>
+        <input type="text" id="Username" name="username" required>
+        <br><br>
+
+        <button type="submit">Add</button>
+        <br><br>
+    </form>
 </div>
 
-    <form action="#" th:action="@{/logout}" method="POST">
-        <button type="submit">Logout</button>
-    </form>
+<h3>Update Password</h3>
+<form th:action="@{/updateEmployee}" method="post">
+    <label for="newPassword">New Password:</label>
+    <input type="password" id="newPassword" name="newPassword" required>
+    <br><br>
+
+    <button type="submit">Update</button>
+    <br><br>
+</form>
+
+<form action="#" th:action="@{/logout}" method="POST">
+    <br><br>
+    <button type="submit">Logout</button>
+</form>
 </body>
 </html>

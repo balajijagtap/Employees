@@ -14,10 +14,22 @@
         !! Invalid username or password.
         <br><br>
     </div>
+
     <div th:if="${param.logout}">
         !! You have been logged out.
         <br><br>
     </div>
+
+    <div th:if="${successMessage}">
+        User updated successfully. Please log in with your new credentials.
+        <br><br>
+    </div>
+
+    <div th:if="${errorMessage}">
+        Failed to update user.
+        <br><br>
+    </div>
+
     <label>
         <input type="text" name="username" placeholder="username" />
     </label>
